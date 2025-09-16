@@ -6,6 +6,15 @@
 - Starting with Authentication using Auth.js.
 - Improve our File and Folder Structure before implementing Authentication.
 - Implement Auth in Navbar
+- Theming & Fonts
+
+## Theming & Fonts
+
+- Every website also has it's unique themes and font's.
+- let's setup tailwind [config](https://github.com/adrianhajdin/yc_directory?tab=readme-ov-file#%EF%B8%8F-snippets).
+- `pnpm add tailwindcss-animate` & `pnpm add @tailwindcss/typography`
+- we will use `app/layout.tsx` to setup the right font's. currently we're using google fonts now. but it is preferable to have them hosted locally - get them from [in-here](https://drive.google.com/file/d/1OEFHnEq5pQFP86u8FOBLBBNxKPsbjjqU/view).
+- `localFont` allowing you to not depend on external services.
 
 ## Implement Auth in Navbar
 
