@@ -4,6 +4,13 @@
 - Removed Default `README.md` Content
 - Enforcing Dependency Versions
 - Starting with Authentication using Auth.js.
+- Improve our File and Folder Structure before implementing Authentication.
+
+## Improve our File and Folder Structure before implementing Authentication
+
+- let's create a new `Route Group` - `(root)` - which will be our `Home Page`. Move our `app/page.tsx` into `(root)/page.tsx` & also create a `layout.tsx` file -> means what we apply to this layout will only be applied to the pages within this route group.
+- create `components` folder in `app` directory and create a `Navbar.tsx` component which we will add in `layout.tsx`. if you got to localhost -> you will be able to see `Navbar` at the top and `HOME` below it.
+- Right within the Navbar we will implement our NextAuth.
 
 ## Starting with Authentication using Auth.js
 
