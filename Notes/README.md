@@ -5,6 +5,16 @@
 - Enforcing Dependency Versions
 - Starting with Authentication using Auth.js.
 - Improve our File and Folder Structure before implementing Authentication.
+- Implement Auth in Navbar
+
+## Implement Auth in Navbar
+
+- Style it a bit - refer code & offline notes on what is what.
+- Remove the files in public folder.
+- Get the logo from Figma
+- [Server Action to a form](https://react.dev/reference/rsc/server-functions#server-functions-with-actions) & [from next.js docs](https://nextjs.org/docs/app/guides/forms)
+- Our setup looks like this now:
+  ![alt text](images/image-1.png)
 
 ## Improve our File and Folder Structure before implementing Authentication
 
