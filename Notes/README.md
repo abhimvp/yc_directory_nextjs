@@ -2,7 +2,45 @@
 
 - Setup
 - Removed Default `README.md` Content
--
+- Enforcing Dependency Versions
+- Starting with Authentication using Auth.js.
+
+## Starting with Authentication using Auth.js
+
+- [Official Doc](https://authjs.dev/) - which is also known as NextAuth.
+- [Installation](https://authjs.dev/getting-started/installation):
+  - #1 -> Installing Auth.js
+  - #2 -> Setup Environment : The only environment variable that is mandatory is the AUTH_SECRET. This is a random value used by the library to encrypt tokens and email verification hashes. -> Creates a new `.env.local` file with `AUTH_SECRET`.
+  - #DOIT -> Implement our configuration: create the Auth.js config file and object. This is where you can control the behavior of the library and specify custom authentication logic, adapters, etc. We recommend all frameworks to create an auth.ts file in the project.
+    - create a new `auth.ts` file at the root of your app
+    - Add a Route Handler under `/app/api/auth/[...nextauth]/route.ts`.
+      - create a the following folders in order under `app` directory/Folder -> `api` FOLDER-> `auth` FOLDER -> `[..nextauth]` FOLDER -> `route.ts` FILE
+    - For now `Skipping` : Add optional Middleware to keep the session alive.
+    - Setup Authentication Methods: we’ll setup the first authentication methods and fill out that `providers` array - At this point, `you need to decide how you’re gonna authenticate users in your application`. Auth.js supports four main authentication paradigm.
+      - We will go with `OAuth`: Recommended because `OAuth services spend significant amounts of money, time, and engineering effort to build abuse detection (bot-protection, rate-limiting), password management (password reset, credential stuffing, rotation), data security (encryption/salting, strength validation), and much more.`
+      - We will go with `Github` which one of the popular provider for Authentication.
+      - When registering an OAuth application on GitHub, they will all ask you to enter your application’s callback URL.
+      - In our case, we need to set it up from scratch - Let's go to `connections` -> `providers` -> [Github](https://authjs.dev/getting-started/providers/github) - here we get all the information on how we can create a new GitHub OAuth App - which we need for the setup. For more instructions head over to this [DOC](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) - steps needed to create a GITHUB OAuth APP.`http://localhost:3000`
+        ![alt text](images/image.png)
+        - Copy the generated `ClientID` & add it to `.env.local` - add it as `AUTH_GITHUB_ID & AUTH_GITHUB_SECRET`
+        - You can also add your app-logo by referring to the complete figma design for this project
+        - We will revisit this page again at the end of the course with our new deployed URL.
+        - Copy the `configuration` code and add it to our `auth.ts` file - updating our existing file and add a `GITHUB` Provider.
+- So How do we make it work? : Go to `app/Page.tsx` & remove all the default code. just add a fragment & HOME text.
+
+```bash
+#1
+pnpm add next-auth@beta
+#2
+$ npx auth secret
+Need to install the following packages:
+auth@1.2.3
+Ok to proceed? (y) y
+
+📝 Created C:\Users\abhis\Desktop\NextJs Projects\yc_directory_nextjs\.env.local with `AUTH_SECRET`.
+#3
+
+```
 
 ## Enforcing Dependency Versions
 
