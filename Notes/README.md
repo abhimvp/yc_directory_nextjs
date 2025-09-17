@@ -10,6 +10,12 @@
 - Hero Section
   - Key Features in Your CSS File Explained
 - Search Form
+- list of All startUps & Startup card - create one proper re-usable startup card.
+
+## All startUps & Startup card
+
+- we will create another section in Home page which will wrap all of our startups or startup cards.
+- Great Job.
 
 ## Search Form
 
