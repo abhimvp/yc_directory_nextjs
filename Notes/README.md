@@ -9,6 +9,14 @@
 - Theming & Fonts
 - Hero Section
   - Key Features in Your CSS File Explained
+- Search Form
+
+## Search Form
+
+- Create a new component `SearchForm.tsx` in `app/components` folder.
+- We are ensuring SearchForm to be rendered on the server side & not on client side.
+- [nextjs form component](https://nextjs.org/docs/app/api-reference/components/form).
+- we use shadcn [button](https://ui.shadcn.com/docs/components/button)'s instead of default html button.`pnpm dlx shadcn@latest add button` - so we get full code and we can see `components/ui/button.tsx` in the root directory.
 
 ## Hero Section(Home Page)
 
