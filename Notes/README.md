@@ -11,6 +11,51 @@
   - Key Features in Your CSS File Explained
 - Search Form
 - list of All startUps & Startup card - create one proper re-usable startup card.
+- Sanity Setup
+
+## Sanity Setup
+
+- until now we have Mock(Fake) Data with us & No way to add new startup info to our app.
+- We will use [Sanity](https://www.sanity.io/) - it's not just a CMS, we can leverage their API's to build OS around their content.You'll have studio that will mirror the content workspace of your application which we can hand it over to the client - so they can manage it as well. Which is built on top of their API's that allows you control the way you create and manage the content & they store it as well. many big companies use the SANITY to manage their content.
+- They're integrated with Next.js - everything from development to deployment works.
+- Create an account and project in it and starting from scratch and Initialize the project with the cli
+
+```bash
+pnpm create sanity@latest -- --project ****** --dataset production --template clean --typescript --output-path  studio-jsm-yc-directory
+....
+...
+..
+? Please log in or create a new account `GitHub`
+✓ Login successful
+✓ Fetching existing projects
+? Create a new project or select an existing one `JSM YC Directory (******)`
+? Select dataset to use `production`
+? Would you like to add configuration files for a Sanity project in this Next.js folder? `Yes`
+? Do you want to use TypeScript? `Yes`
+? Would you like an embedded Sanity Studio? `Yes`
+? What route do you want to use for the Studio? `/studio`
+? Select project template to use `Clean project with no predefined schema types`
+? Would you like to add the project ID and dataset to your .env.local file? `Yes`
+.....
+....
+dependencies:
++ @sanity/image-url 1.2.0
++ @sanity/vision 4.9.0
++ sanity 4.9.0
++ styled-components 6.1.19
+....
+dependencies:
++ next-sanity 11.1.1
+
+`pnpm install next-sanity@canary`
+dependencies:
+- next-sanity 11.1.1
++ next-sanity 11.2.0-canary.5
+```
+
+- We have got some files created for us during this setup:
+  - `sanity.cli.ts` -> Which added env variables for us.
+  - `sanity.config.ts` -> pointing to the base path of studio. - which we should be able to explore -> Go to browser and try \_> `http://localhost:3000/studio` -> error showed up -> `pnpm install @sanity/structure` - Had to remove `turbopack` in dev scripts. then we get the login page and sign in with github - we will be in this `http://localhost:3000/studio/structure` and we don't see any document types as we haven't created one yet - as we have chosen clean project during project setup
 
 ## All startUps & Startup card
 
