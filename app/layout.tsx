@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "./global.css";
 
 const workSans = localFont({
   src: [
-    {
-      path: "./fonts/WorkSans-Black.ttf",
-      weight: "900",
-      style: "normal",
-    },
     {
       path: "./fonts/WorkSans-ExtraBold.ttf",
       weight: "800",

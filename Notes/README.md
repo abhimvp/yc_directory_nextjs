@@ -7,6 +7,88 @@
 - Improve our File and Folder Structure before implementing Authentication.
 - Implement Auth in Navbar
 - Theming & Fonts
+- Hero Section
+  - Key Features in Your CSS File Explained
+
+## Hero Section(Home Page)
+
+- Also we can create a `utility` class called heading or sub-heading & then we can re-use it across pages.
+- Go to `global.css` - add `@layer` - Use the @layer directive to tell Tailwind which "bucket" a set of custom styles belong to. Valid layers are base, components, and utilities - it's better to have utilities rather than having them in className.
+- if you guys are getting tailwind css styling errors. try the following. delete the tailwind.config file from the root of your project. replace the code for it to work on tailwind v4.
+  - [@theme](https://tailwindcss.com/docs/theme)
+- Reason to rename globals.css to global.css - [For Tailwind V4 classes work](https://medium.com/@bloodturtle/the-problem-f71da1eb9faa)
+- [Install](https://ui.shadcn.com/docs/cli) `shadcn` CLI - library to help re-use some of the components.The Foundation for your Design System.A set of beautifully designed components that you can customize, extend, and build on.
+  - Use the shadcn CLI to add components to your project.
+  - Use the `init` command to initialize configuration and dependencies for a new project.
+  - The `init` command installs dependencies, adds the `cn` util and configures CSS variables for the project.
+  - `pnpm dlx shadcn@latest init`
+  - Use the `add` command to add components and dependencies to your project.
+
+```bash
+$ pnpm dlx shadcn@latest init
+....
+...
+..
+.
+added 320, done
+✔ Preflight checks.
+✔ Verifying framework. Found Next.js.
+✔ Validating Tailwind CSS config. Found v4.
+✔ Validating import alias.
+√ Which color would you like to use as the base color? » Slate
+✔ Writing components.json.
+✔ Checking registry.
+✔ Updating CSS variables in app\global.css
+✔ Installing dependencies.
+✔ Created 1 file:
+  - lib\utils.ts
+
+Success! Project initialization completed.
+You may now add components.
+```
+
+- Let's build the header of our application in `app/(root)/page.tsx`
+
+### Key Features in Your CSS File Explained
+
+Let's break down the new at-rules from your file:
+
+- @import "tailwindcss";
+  This single line replaces the three old directives (@tailwind base;, @tailwind components;, @tailwind utilities;). It's the new, all-in-one entry point for all of Tailwind's styles.
+
+- @theme { ... }
+  This is the biggest change. The @theme block is the direct replacement for your tailwind.config.ts file. You define all your design tokens—colors, fonts, breakpoints, etc.—as CSS custom properties.
+
+--color-primary: #ee2b69; in @theme automatically creates utility classes like bg-primary, text-primary, etc.
+
+--breakpoint-xs: 475px; creates the xs: responsive modifier.
+
+- @plugin "..."
+  This is the new, simplified way to include official Tailwind CSS plugins like tailwindcss-animate and @tailwindcss/typography.
+
+- @utility ... { ... }
+  This is a new, more concise way to create your own custom utility classes. It replaces the old syntax: @layer utilities { .class-name { @apply ... } }. It's essentially a dedicated at-rule for creating reusable styles with @apply.
+
+Old Way (v3):
+
+```CSS
+@layer utilities {
+.profile_container {
+@apply w-full pb-10 pt-20;
+}
+}
+```
+
+New Way (v4):
+
+```CSS
+
+@utility profile_container {
+@apply w-full pb-10 pt-20;
+}
+```
+
+- A word of caution: Because Tailwind v4 is in alpha, its syntax and features are still subject to change before the final release. It's fantastic for learning and personal projects, but be mindful when using it for production applications.
 
 ## Theming & Fonts
 
