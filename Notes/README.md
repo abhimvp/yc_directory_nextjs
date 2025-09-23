@@ -54,10 +54,23 @@
   - The App hook up to NextAuth to Authenticate our Users & create a session - if a session doesn't exist - We'll head over to GitHub OAuth - Authenticate the user -> Get the user information -> Then Create Session for that user -> if a user exists - then we make a call to sanity to find that user as an Author-> if the user doesn't exist -> we'll create a new Author -> If the Author exists then we'll return that Author & then they'll be able to create different startups.
 
 - let's create a Schema for our Author -> `sanity/schemaTypes/author.ts`
+
   - `preview`: It will allow us to select those authors by name and preview them.
   - `fields []`: defines the fields that each author will have.
   - we then use the `author` type in `schemaTypes/index.ts`
   - We need to structure this schema in `sanity/structure.ts` - Here we can list different things sanity provides.
+
+- let's create a Startup schema as well -> `sanity/schemaTypes/startup.ts`.
+
+  - we created Rule for certain fields to validate user info.
+  - user "markdown" in type which uses the official markdown plugin by sanity. let's install it -> `pnpm i sanity-plugin-markdown`
+    - once the plugin is installed let's go to `sanity.config.ts` & add it in Plugins.
+    - Then also for this to work - Go to `app/layout.tsx` -> where we have to add all of the general configuration.in this markdown needs additional css -> `import 'easymde/dist/easymde.min.css';` this will make sure that our editor looks great.
+
+- Now if we go to Studio - we would no longer see an empty slate, rather we should be able to create few startups directly from the dashboard.
+  ![alt text](images/image-3.png)
+  - let's create a mock author & startup by creating a new author document & publish the author.
+  - Now how can we see them within our application, how do we fetch the data from sanity studio.
 
 ## Sanity Setup
 
