@@ -12,6 +12,52 @@
 - Search Form
 - list of All startUps & Startup card - create one proper re-usable startup card.
 - Sanity Setup
+- Create Sanity Schemas - so we can structure the types of documents in our database.
+
+## Sanity Schema
+
+- We use this to create our own database structure.
+- Whenever you're starting to work on any backend or any kind of database structure specifically - First think about what do you need?
+- In our Project:
+  - We need to store `Startups` - Submitted by a User
+  - which includes the `User` information that submitted those startups.
+  - We need to group those Startups into some kind of `Playlist` - so we can show them as editor picks or startup of the month, day, honors and so on.
+  - In simple terms this is how the database structure looks like, we will have a ->
+    - Startup:
+      - Title
+      - Slug -> unique name or identifier for that startup
+      - Author -> Who created it
+      - Views
+      - Description
+      - Category
+      - Image
+      - Pitch - In markdown format
+    - Author: Will be Authenticated through Github, so we will automatically get it's
+      - Id
+      - Name
+      - Username
+      - Email
+      - Image
+      - Bio
+    - playlist: In which we can categorize the startups & then retrieve them
+      - Title:
+        - Editor Picks
+        - Startup of the Day
+        - Honors
+        - Startup of the Month
+        - People's Favorite
+      - Slug
+      - Select Startups
+- [App Workflow](https://miro.com/app/board/uXjVLT_tMdU=/):
+  ![alt text](images/image-2.png)
+
+  - The App hook up to NextAuth to Authenticate our Users & create a session - if a session doesn't exist - We'll head over to GitHub OAuth - Authenticate the user -> Get the user information -> Then Create Session for that user -> if a user exists - then we make a call to sanity to find that user as an Author-> if the user doesn't exist -> we'll create a new Author -> If the Author exists then we'll return that Author & then they'll be able to create different startups.
+
+- let's create a Schema for our Author -> `sanity/schemaTypes/author.ts`
+  - `preview`: It will allow us to select those authors by name and preview them.
+  - `fields []`: defines the fields that each author will have.
+  - we then use the `author` type in `schemaTypes/index.ts`
+  - We need to structure this schema in `sanity/structure.ts` - Here we can list different things sanity provides.
 
 ## Sanity Setup
 
@@ -56,6 +102,12 @@ dependencies:
 - We have got some files created for us during this setup:
   - `sanity.cli.ts` -> Which added env variables for us.
   - `sanity.config.ts` -> pointing to the base path of studio. - which we should be able to explore -> Go to browser and try \_> `http://localhost:3000/studio` -> error showed up -> `pnpm install @sanity/structure` - Had to remove `turbopack` in dev scripts. then we get the login page and sign in with github - we will be in this `http://localhost:3000/studio/structure` and we don't see any document types as we haven't created one yet - as we have chosen clean project during project setup
+  - `/sanity/lib/client.ts` -> This is the sanity read client for fetching data through queries, if you set the useCdn part to false - this will make to sure to cache whatever content you request for 60 seconds, After 60 seconds you will get newer version of Data, But in between the content will be delivered from the Sanity CDN (ISR Data fetching strategy).
+  - `/sanity/lib/image.ts` -> An Image URL Builder for images uploaded on Sanity Studio, so we can use on front-end side. (not present in current structure may be there could be an alternative or we create it later - [docs reference](https://www.sanity.io/docs/apis-and-sdks/presenting-images)) // TODO: `pnpm add @sanity/image-url` or we will be using a markdown plugin instead - there won't be need of this file.
+  - `Sanity/schemaTypes`: currently it's empty and later we'll create our own sanity schemas & export them.so that our entire application knows what kind of fields will each startup or document will have.
+  - `sanity/env.ts` -> where we list which kind of envs we need for our application.
+  - `Sanity/structure.ts` -> where you decide how do you arrange your schemas.
+  - `How does Sanity gets rendered within our app?` -> The sanity team added a `Studio Page` in the `app` directory.simple.
 
 ## All startUps & Startup card
 
