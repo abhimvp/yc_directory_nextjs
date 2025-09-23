@@ -13,6 +13,66 @@
 - list of All startUps & Startup card - create one proper re-usable startup card.
 - Sanity Setup
 - Create Sanity Schemas - so we can structure the types of documents in our database.
+- Fetching Data & type Safety - Fetch data from real DB
+
+## Fetching Data
+
+- In order to fetch data from sanity - we'll have to use something known as `GROQ` [Queries](https://www.sanity.io/docs/content-lake/groq-introduction).
+- if we can go to vision in studio `http://localhost:3000/studio/vision` - we can write the query and the params and see the results in real time.
+
+```json
+*[_type=="startup" && defined(slug.current)]{
+  _id,title,slug,author->{_id,name,image}
+}
+```
+
+- Now let's create a `queries.ts` file in `lib`.
+- now to fetch the data let's go to `app/(root)/page.tsx`.
+- Now we're able to fetch data directly from sanity studio & that's lovely isn't it.
+- Now we don't yet have a `StartupCardType` - which will be necessary for our startup card. We're using typescript, we need to be able to know exactly which properties does each startup have.
+- Instead of defining types manually sanity's new tool generates types automatically both for sanity studio schema types and groq querying results.
+- To leverage that tool we need to add `sanity-typegen` - [docs reference](https://www.sanity.io/learn/course/content-driven-web-application-foundations/generate-typescript-types)
+  - First thing is we have to extract schema we have already created(`startup` & `author` in `/sanity/schemaTypes`)
+  - To extract those schemas we need to run an additional command - `npx sanity@latest schema extract --path=./sanity/extract.json` - Re-run this every time you modify your schema types.
+    - The --path argument is provided so the schema file is written to the same folder as all our other Sanity utilities.
+    - You should see a response like the one below and a newly generated extract.json file in your /sanity directory
+
+```bash
+$ npx sanity@latest schema extract --path=./sanity/extract.json
+✓ Extracted schema to ./sanity/extract.json
+```
+
+- Next we have to create a new file `sanity-typegen.json` and add a configuration object as defined in here from [sanity learn](https://www.sanity.io/learn/course/content-driven-web-application-foundations/generate-typescript-types#s-e4a1f03df160)
+  - Without this step, Typegen will look for your schema in the default named schema.json file instead of the extract.json file we have created.
+    - The configuration here will:
+      - Scan the src directory for GROQ queries to create Types.
+      - Additionally, use the extract.json file created during the previous task.
+      - Write a new types.ts file with our other Sanity utilities.
+  - Then run the command `npx sanity@latest typegen generate` - Re-run this every time you modify your schema types or GROQ queries
+
+```bash
+$ npx sanity@latest typegen generate
+✓ Generated TypeScript types for 14 schema types and 0 GROQ queries in 0 files into: ./sanity/types.ts
+```
+
+- You now have Types for your Sanity Studio schema types and GROQ queries.
+- we need to re-run the above commands whenever we change schemas or queries.To automate it , we add them in scripts in package.json. here onwards we can do the following:
+
+```bash
+$ pnpm run typegen
+
+> yc_directory_nextjs@0.1.0 typegen C:\Users\abhis\Desktop\NextJs Projects\yc_directory_nextjs
+> sanity schema extract --path=./sanity/extract.json && sanity typegen generate
+
+✓ Extracted schema to ./sanity/extract.json
+✓ Generated TypeScript types for 14 schema types and 0 GROQ queries in 0 files into: ./sanity/types.ts
+```
+
+- Now let's define the type for `StartupCard`-> `StartupTypeCard`.
+- Now we know how to fetch new data from database through sanity's GROQ open-source query language -> by first visualizing your queries in `Sanity studio/vision TAB` & then creating them independently in our code calling them in a single line to see those startups & even doing automatic type safety using sanity's typegen.
+
+- Next we will look into now nextjs caches our data & how can we further optimize it depending on the type of our application.
+  - we will see what's the best use case for the type of the application where you want to get shown new posts immediately.
 
 ## Sanity Schema
 
