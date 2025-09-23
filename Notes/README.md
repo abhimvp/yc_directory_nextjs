@@ -14,6 +14,22 @@
 - Sanity Setup
 - Create Sanity Schemas - so we can structure the types of documents in our database.
 - Fetching Data & type Safety - Fetch data from real DB
+- Cache and Live API w/Next.js
+
+## Cache and Live API w/Next.js
+
+- In sanity/client.ts - `useCdn: true` -> This means that sanity will cache content for 60 seconds & then re-validate the content after every 60 seconds -> This is ISR (Incremental Static Regeneration)
+  - To always get new data live and in real-time we'll have to go back to code and set to `useCdn: false` to always get the new data.
+  - why is it set to `true` By default? -> when you're fetching from cache and in most cases that is good enough & whenever you don't need real-time data such as for blog posts or even for our existing application we don't need to see newly submitted startups every minute. so it's much faster to get the data from a CDN or from cache.
+- for us to explore new features oof nextjs and sanity - we will set it to `false` - so that we get latest data immediately after a refresh & also that is not enough we want to see it immediately without needing to refresh. For that we will use [sanity's Live Content API](https://www.sanity.io/docs/content-lake/live-content-api)
+- to implement it within our application - run `pnpm i server-only` - a package that will help us ensure that a specific module can only be used in server components.
+  - By importing server-only in a file, you ensure that the code in that file, and any code that depends on it, will only run on the server and not be included in client-side bundles. This helps prevent accidental exposure of server-specific logic or sensitive data to the client.
+- next we create a new utility file within `sanity/lib/`live.ts
+- Also go to `.env.local` & change SANITY version to use latest one - `NEXT_PUBLIC_SANITY_API_VERSION="vX"`
+- Go to `page.tsx` and make one change to our sanity fetch.
+  - Whenever you need to query data in your Sanity dataset, import the sanityFetch helper and call it as you would any Sanity client by passing in a GROQ query and any query parameters.
+  - The final step to enable the Live Content API is adding the SanityLive React component. It listens for changes in your data and works with your sanityFetch queries to efficiently update content . Include it in application so it renders on any page that needs live content.
+  - To test the changes immediately - go to /studio & add new data and see it reflect instantly on the UI. - Worked like a charm.
 
 ## Fetching Data
 
