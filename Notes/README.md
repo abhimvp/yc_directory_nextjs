@@ -15,6 +15,16 @@
 - Create Sanity Schemas - so we can structure the types of documents in our database.
 - Fetching Data & type Safety - Fetch data from real DB
 - Cache and Live API w/Next.js
+- Real-Time Search W/URL - Query params
+
+## Real-Time Search W/URL - Query params
+
+- Now that we have some posts in the Home page - let's implement the search as well.
+- As we know when we search something - it changes/modifies the query in the URL.
+  - so first we need to retrieve that query in our application & then further filter the fetch that we're trying to make.
+  - we can make that at the Top of page.tsx using the searchParams
+  - we add `&& !defined($search) || title match $search || category match $search || author -> name match $search` this in our STARTUPS_QUERY -> which takes care of whether a search exists or if search matches a category or if search matches the author name.
+  - Works great
 
 ## Cache and Live API w/Next.js
 

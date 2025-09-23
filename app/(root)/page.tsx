@@ -9,10 +9,11 @@ export default async function Home({
 }: {
   searchParams: Promise<{ query?: string }>;
 }) {
-  const query = (await searchParams).query;
+  const query = (await searchParams).query; // we have already extracted query here
+  const params = { search: query || null };
 
   // const posts = await client.fetch(STARTUPS_QUERY);
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
   // this will ensure to revalidate this page whenever new changes are made
 
   // console.log("Posts:", posts);
