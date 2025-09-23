@@ -16,6 +16,42 @@
 - Fetching Data & type Safety - Fetch data from real DB
 - Cache and Live API w/Next.js
 - Real-Time Search W/URL - Query params
+- Understanding Partial Pre-rendering - implement details page.
+
+## Understanding Partial Pre-rendering - implement startup details page
+
+- so we will create the new folder to implement our details page - under `(root)` -> `startup/[id]/page.tsx`
+- Now we need to extract the `id` from url within our code - using `params` - then we take the id and fetch all of the details of that startup.
+- let's go to studio & get ourselves the query to fetch the details of startup page.
+
+```query
+*[_type=="startup" && _id == $id][0]{
+  _id,
+    title,
+    slug,
+    _createdAt,
+    author -> {
+        _id, name, image , username, bio
+      },
+      description,
+      category,
+      image,
+      views,
+    pitch
+}
+```
+
+- we will use the query above in `sanity/lib/queries.ts` -> STARTUP_BY_ID_QUERY.
+- also here we don't need sanity live fetch - we can implement different rendering strategies on the same page & use one of which is `Partial pre-rendering` - [docs](https://nextjs.org/docs/app/getting-started/partial-prerendering) - Partial Prerendering (PPR) is a rendering strategy that allows you to combine static and dynamic content in the same route. This improves the initial page performance while still supporting personalized, dynamic data.
+- You can enable PPR by adding the ppr option to your next.config.ts file
+  - The 'incremental' value allows you to adopt PPR for specific routes by adding this line in `.tsx` of that file - `export const experimental_ppr = true`
+  - devIndicators are set by defualt
+  - Partial Prerendering (ppr) is a new rendering strategy that is still under development. To prevent users from accidentally using an unstable feature in a production app, the Next.js team has restricted its use to the canary channel, which contains the latest, bleeding-edge code.
+    - Upgrade to the Canary Version
+    - If you intentionally want to experiment with Partial Prerendering, you must upgrade your project to use the canary releases of Next.js and React.
+    - Warning: Canary versions are not stable and are not recommended for production use. They may contain bugs or breaking changes.
+    - Do `pnpm add next@canary react@canary react-dom@canary`
+    - After upgrading, delete the `.next` folder and restart your development server.
 
 ## Real-Time Search W/URL - Query params
 
