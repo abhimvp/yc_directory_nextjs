@@ -17,10 +17,14 @@
 - Cache and Live API w/Next.js
 - Real-Time Search W/URL - Query params
 - Understanding Partial Pre-rendering - implement details page.
+- Startup details Page
 
 ## Code Startup details Page
 
-
+- Implementing it here -`yc_directory_nextjs\app\(root)\startup\[id]\page.tsx`
+- we will render pitch details in markdown format tp parse and convert the markdown into an HTML string we need to install an additional package - `markdown-it` - [Do](https://github.com/markdown-it/markdown-it) `pnpm add markdown-it` & `pnpm add @types/markdown-it`
+- `pnpm dlx shadcn@latest add skeleton` - Use to show a placeholder while content is loading!!!
+- Write a query to get total no.of views.
 
 ## Understanding Partial Pre-rendering - implement startup details page
 
