@@ -19,6 +19,14 @@
 - Understanding Partial Pre-rendering - implement details page.
 - Startup details Page
 - Sanity Write Client
+- Revisit Author Authentication flow
+
+## Author Authentication flow
+
+- so we not only login in using Google OAuth but we actually create a real author in our database that will then be capable of creating new startups directly within the YC directory app, let's do that.
+- Depending if there is a session or not, we have to make sure that the user that is authenticated also is created as an Author within our database & if they're not we need to create one in their name.
+  - to do that we'll have to create sanity query to see whether an author with a specific github id exists- `AUTHOR_BY_GITHUB_ID_QUERY`
+  - then go to `auth.ts` - write some callbacks - these are functions that are executed after a successful authentication by nextAuth
 
 ## Sanity Write Client
 
