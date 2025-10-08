@@ -20,6 +20,18 @@
 - Startup details Page
 - Sanity Write Client
 - Revisit Author Authentication flow
+- Create Startup Form
+
+## Create startup form
+
+- For that, we create a new route in our application.
+- Our form will use different shadcn components - `pnpm dlx shadcn@latest add input textarea sonner`
+- We will have a PITCH & this will be the actual markdown which will give us a lot of different capabilities, so we can further optimize in style how we want to portray the pitch of our startup.
+- You can preview things in real-time - so it gives you lot of flexibility in how you want to present your startup
+- To create this markdown component we use - [@uiw/react-md-editor](https://www.npmjs.com/package/@uiw/react-md-editor) - `pnpm add @uiw/react-md-editor`
+- we will submit the form using react's latest [`useActionState`](https://react.dev/reference/react/useActionState) hook - that allows you to update state based on the result of a form action.
+  ![alt text](images/image-4.png)
+- For the validation of form - we use [zod](https://zod.dev/) - TypeScript-first schema validation with static type inference. To implement it - create a new file in `lib` folder call it `validation.ts`. - Do `pnpm add zod`
 
 ## Author Authentication flow
 
