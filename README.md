@@ -18,6 +18,19 @@
 - Real-Time Search W/URL - Query params
 - Understanding Partial Pre-rendering - implement details page.
 - Startup details Page
+- Sanity Write Client
+
+## Sanity Write Client
+
+- Sanity Write Client functionalities meaning being able to modify some data directly within our application, this will allow us to create new startups but even sooner than that it'll allow us to update the number of views - so we can see the full benefits of PPR.
+- we will have to setup a new sanity Write client that allows users to perform write operations & to setup that we need to generate a token with right permissions through the [sanity manage website](https://www.sanity.io/organizations/o6HKupPhG/project/9bnzp9j7?orgId=o6HKupPhG).
+  - visit Dashboard
+  - navigate to project
+  - Head-over to API > Go to Tokens & Add a new API Token - Create and Update Startups - Give it Editor Access - copy the token & Add it to `.env.local`
+  - Then to go to `sanity/env.ts` & add this `export const token = process.env.SANITY_WRITE_TOKEN;`
+  - Then create new client under `sanity/lib/write-client.ts`
+  - now we have writeClient - we can update views for a startup details page.
+    - To run the update view on the background while we see the rest of the results immediately we can use the [unstable_after(currently it's after Function)](https://nextjs.org/docs/app/api-reference/functions/after) functionality
 
 ## Code Startup details Page
 
